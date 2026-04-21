@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liu Mohan — Life Sciences</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #fdfcfa;
+    --ink: #1a1a18;
+    --muted: #6b6b64;
+    --accent: #3b6d11;
+    --accent-light: #eaf3de;
+    --border: #ddd9d0;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'Calibri', 'Calibri Light', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 3rem 1.5rem;
+  }
+
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1.5px solid var(--ink);
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .name {
+    font-family: 'Calibri', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .name em {
+    font-style: normal;
+    color: var(--ink);
+  }
+
+  .title-block {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    line-height: 1.9;
+    text-align: right;
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.2s; }
+  .section:nth-child(4) { animation-delay: 0.3s; }
+  .section:nth-child(5) { animation-delay: 0.4s; }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  /* About */
+  .about-text {
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--ink);
+    max-width: 580px;
+  }
+
+  /* Education card */
+  .edu-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 1rem;
+  }
+
+  .edu-inst {
+    font-family: 'Calibri', sans-serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-major {
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .edu-year {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--white);
+    background: var(--accent);
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    white-space: nowrap;
+    margin-top: 0.2rem;
+  }
+
+  /* Interests */
+  .interests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .interest-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .interest-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .interest-label {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  /* Skills */
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    font-size: 0.82rem;
+    font-weight: 400;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--white);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .skill-tag:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Contact */
+  .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--white);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .contact-item:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .contact-icon {
+    font-size: 1rem;
+  }
+
+  /* Gallery button */
+  .gallery-open-btn {
+    font-family: 'Calibri', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.55rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .gallery-open-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Modal box */
+  #galleryBox {
+    background: var(--white);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    width: min(680px, 96vw);
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 1.5rem;
+  }
+  .gal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    font-family: 'Calibri', sans-serif;
+  }
+  .gal-close {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--muted);
+    line-height: 1;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+  }
+  .gal-close:hover { color: var(--ink); }
+
+  /* Photo Gallery */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .photo-slot {
+    aspect-ratio: 4/3;
+    border-radius: 10px;
+    border: 1.5px dashed var(--border);
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .photo-slot:hover { border-color: var(--accent); }
+
+  .photo-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0; left: 0;
+    border-radius: 8px;
+  }
+
+  .photo-slot .upload-hint {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.6;
+    padding: 0.5rem;
+    pointer-events: none;
+  }
+
+  .photo-slot .upload-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.4rem;
+    pointer-events: none;
+  }
+
+  .photo-slot input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(26,26,24,0.55);
+    color: #fff;
+    font-size: 0.72rem;
+    padding: 0.3rem 0.6rem;
+    text-align: center;
+    border-radius: 0 0 8px 8px;
+    display: none;
+  }
+
+  .photo-slot.has-image .photo-caption { display: block; }
+  .photo-slot.has-image .upload-hint,
+  .photo-slot.has-image .upload-icon { display: none; }
+
+  .photo-remove {
+    position: absolute;
+    top: 6px; right: 6px;
+    background: rgba(26,26,24,0.6);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 22px; height: 22px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .photo-slot.has-image .photo-remove { display: flex; }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.5s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 480px) {
+    .header { grid-template-columns: 1fr; }
+    .title-block { text-align: left; }
+    .edu-card { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <h1 class="name">Liu <em>Mohan</em></h1>
+    <div class="title-block">
+      Life Sciences<br>
+      NUS · Year 2<br>
+      Singapore
+    </div>
+  </header>
+
+  <section class="section">
+    <p class="section-label">About</p>
+    <p class="about-text">
+      Undergraduate student at the National University of Singapore, pursuing a Bachelor of Science (Hons) in Life Sciences with specialisation in Ecology, Evolution and Biodiversity, and a second major in Statistics. Interested in avian taxonomy, avian evolution, and behavioural biology.
+    </p>
+  </section>
+
+  <section class="section">
+    <p class="section-label">Education</p>
+    <div class="edu-card">
+      <div>
+        <div class="edu-inst">National University of Singapore</div>
+        <div class="edu-major">B.Sc. (Hons) Life Sciences — Ecology, Evolution & Biodiversity</div>
+        <div class="edu-major" style="margin-top:0.25rem;">Second Major in Statistics</div>
+      </div>
+      <div class="edu-year">2024 – Present</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-label">Interests</p>
+    <div class="interests-grid">
+      <div class="interest-item">
+        <span class="interest-icon">🐦</span>
+        <span class="interest-label">Avian Taxonomy</span>
+      </div>
+      <div class="interest-item">
+        <span class="interest-icon">🧬</span>
+        <span class="interest-label">Avian Evolution</span>
+      </div>
+      <div class="interest-item">
+        <span class="interest-icon">🔍</span>
+        <span class="interest-label">Behavioural Biology</span>
+      </div>
+      <div class="interest-item">
+        <span class="interest-icon">🌿</span>
+        <span class="interest-label">Ecology & Biodiversity</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-label">Contact</p>
+    <div class="contact-row">
+      <a class="contact-item" href="mailto:E1484109@u.nus.edu">
+        <span class="contact-icon">✉</span>
+        E1484109@u.nus.edu
+      </a>
+      <a class="contact-item" href="https://www.linkedin.com/in/mohan-liu-bio-eco" target="_blank">
+        <span class="contact-icon">in</span>
+        mohan-liu-bio-eco
+      </a>
+    </div>
+  </section>
+
+  <section class="section" style="animation-delay:0.35s;">
+    <p class="section-label">Bird Photography</p>
+    <button class="gallery-open-btn" onclick="document.getElementById('galleryModal').style.display='flex'">
+      📷 &nbsp;View / Upload Photos
+    </button>
+  </section>
+
+  <!-- Gallery Modal -->
+  <div id="galleryModal" style="display:none;position:fixed;inset:0;background:rgba(20,20,18,0.55);z-index:1000;align-items:center;justify-content:center;padding:1.5rem;">
+    <div id="galleryBox">
+      <div class="gal-header">
+        <span style="font-size:1rem;font-weight:500;">Bird Photography</span>
+        <button class="gal-close" onclick="document.getElementById('galleryModal').style.display='none'">✕</button>
+      </div>
+      <div class="photo-grid" id="photoGrid">
+        <div class="photo-slot" id="slot0">
+          <input type="file" accept="image/*" onchange="loadPhoto(this,0)">
+          <span class="upload-icon">📷</span>
+          <span class="upload-hint">Click to upload</span>
+          <img id="img0" src="" alt="">
+          <button class="photo-remove" onclick="removePhoto(event,0)">✕</button>
+          <div class="photo-caption" id="cap0"></div>
+        </div>
+        <div class="photo-slot" id="slot1">
+          <input type="file" accept="image/*" onchange="loadPhoto(this,1)">
+          <span class="upload-icon">📷</span>
+          <span class="upload-hint">Click to upload</span>
+          <img id="img1" src="" alt="">
+          <button class="photo-remove" onclick="removePhoto(event,1)">✕</button>
+          <div class="photo-caption" id="cap1"></div>
+        </div>
+        <div class="photo-slot" id="slot2">
+          <input type="file" accept="image/*" onchange="loadPhoto(this,2)">
+          <span class="upload-icon">📷</span>
+          <span class="upload-hint">Click to upload</span>
+          <img id="img2" src="" alt="">
+          <button class="photo-remove" onclick="removePhoto(event,2)">✕</button>
+          <div class="photo-caption" id="cap2"></div>
+        </div>
+        <div class="photo-slot" id="slot3">
+          <input type="file" accept="image/*" onchange="loadPhoto(this,3)">
+          <span class="upload-icon">📷</span>
+          <span class="upload-hint">Click to upload</span>
+          <img id="img3" src="" alt="">
+          <button class="photo-remove" onclick="removePhoto(event,3)">✕</button>
+          <div class="photo-caption" id="cap3"></div>
+        </div>
+        <div class="photo-slot" id="slot4">
+          <input type="file" accept="image/*" onchange="loadPhoto(this,4)">
+          <span class="upload-icon">📷</span>
+          <span class="upload-hint">Click to upload</span>
+          <img id="img4" src="" alt="">
+          <button class="photo-remove" onclick="removePhoto(event,4)">✕</button>
+          <div class="photo-caption" id="cap4"></div>
+        </div>
+        <div class="photo-slot" id="slot5">
+          <input type="file" accept="image/*" onchange="loadPhoto(this,5)">
+          <span class="upload-icon">📷</span>
+          <span class="upload-hint">Click to upload</span>
+          <img id="img5" src="" alt="">
+          <button class="photo-remove" onclick="removePhoto(event,5)">✕</button>
+          <div class="photo-caption" id="cap5"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">Liu Mohan · National University of Singapore · Life Sciences</footer>
+
+<script>
+function loadPhoto(input, i) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    document.getElementById('img' + i).src = e.target.result;
+    document.getElementById('slot' + i).classList.add('has-image');
+    const name = file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+    document.getElementById('cap' + i).textContent = name || ('Photo ' + (i+1));
+  };
+  reader.readAsDataURL(file);
+}
+
+function removePhoto(e, i) {
+  e.preventDefault();
+  e.stopPropagation();
+  document.getElementById('img' + i).src = '';
+  document.getElementById('slot' + i).classList.remove('has-image');
+  const inputs = document.getElementById('slot' + i).querySelectorAll('input[type=file]');
+  inputs.forEach(inp => inp.value = '');
+}
+</script>
+
+</div>
+</body>
+</html>
